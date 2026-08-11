@@ -1,10 +1,16 @@
 import { Schema, model } from 'mongoose';
+/**
+ * User schema: Represents fitness app users with team membership
+ */
 const userSchema = new Schema({
     username: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true },
     displayName: { type: String, trim: true },
     team: { type: Schema.Types.ObjectId, ref: 'Team' },
 }, { timestamps: true });
+/**
+ * Team schema: Represents groups of users working toward collective fitness goals
+ */
 const teamSchema = new Schema({
     name: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
