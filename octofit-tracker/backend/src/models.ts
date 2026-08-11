@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose';
 
+/**
+ * User schema: Represents fitness app users with team membership
+ */
 const userSchema = new Schema(
   {
     username: { type: String, required: true, trim: true },
@@ -10,6 +13,9 @@ const userSchema = new Schema(
   { timestamps: true },
 );
 
+/**
+ * Team schema: Represents groups of users working toward collective fitness goals
+ */
 const teamSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
