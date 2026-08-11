@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
-import { fetchApiData } from '../api.js';
 
 // API endpoint: /api/teams/
+// Requires VITE_CODESPACE_NAME in .env.local; falls back to localhost
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+const API_URL =
+  codespaceName && codespaceName !== 'undefined'
+    ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
+    : 'http://localhost:8000/api/teams/';
+
 export default function Teams() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +17,10 @@ export default function Teams() {
     const loadTeams = async () => {
       try {
         setLoading(true);
-        const data = await fetchApiData('/api/teams/');
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error(`API Error: ${res.status}`);
+        const json = await res.json();
+        const data = json.results ? json.results : Array.isArray(json) ? json : [];
         setTeams(data);
       } catch (err) {
         setError(err.message);

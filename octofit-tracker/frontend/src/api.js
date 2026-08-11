@@ -1,31 +1,21 @@
-/**
- * API utility for building the base URL.
- *
- * Requires VITE_CODESPACE_NAME to be defined in .env.local or environment:
- * VITE_CODESPACE_NAME=your-codespace-name
- *
- * If VITE_CODESPACE_NAME is not set, falls back to localhost:8000
- */
+// VITE_CODESPACE_NAME must be defined in .env.local for Codespaces deployment
 
-const getApiBaseUrl = () => {
+/**
+ * Builds the full API URL. Falls back to localhost when VITE_CODESPACE_NAME is unset.
+ * Usage: getApiUrl('/api/activities/')
+ */
+export const getApiUrl = (path) => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-  
-  if (codespaceName && codespaceName !== 'undefined') {
-    return `https://${codespaceName}-8000.app.github.dev`;
-  }
-  
-  // Fallback to localhost for local development
-  return 'http://localhost:8000';
+  const base =
+    codespaceName && codespaceName !== 'undefined'
+      ? `https://${codespaceName}-8000.app.github.dev`
+      : 'http://localhost:8000';
+  return `${base}${path}`;
 };
 
-export const apiBaseUrl = getApiBaseUrl();
-
-/**
- * Fetch data from an API endpoint with error handling
- */
 export const fetchApiData = async (path) => {
   try {
-    const url = `${apiBaseUrl}${path}`;
+    const url = getApiUrl(path);
     const response = await fetch(url);
     
     if (!response.ok) {
