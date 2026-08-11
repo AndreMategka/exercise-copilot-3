@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchApiData } from '../api.js';
 
+// API endpoint: /api/users/
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);

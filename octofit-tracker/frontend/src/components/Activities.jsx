@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchApiData } from '../api.js';
 
+// API endpoint: /api/activities/
 export default function Activities() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
