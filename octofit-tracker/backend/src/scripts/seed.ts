@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import mongoose from 'mongoose';
 import { Activity, Leaderboard, Team, User, Workout } from '../models.js';
 

@@ -1,11 +1,8 @@
+import 'dotenv/config';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import express from 'express';
 import db from './config/database.js';
 import { Activity, Leaderboard, Team, User, Workout } from './models.js';
-
-dotenv.config();
-
 const app = express();
 const port = Number(process.env.PORT) || 8000;
 const codespaceName = process.env.CODESPACE_NAME;
